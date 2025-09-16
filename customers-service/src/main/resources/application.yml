@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: customers
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/customers-db
+    password: admin123
+    username: admin
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+  output:
+    ansi:
+      enabled: ALWAYS
+
+server:
+  port: 8082
+
+  logging:
+    pattern:
+      console: "%clr(%d{dd-MM-yyyy HH:mm:ss}){faint} %clr(%5p) %clr([%t]){faint} %clr(%-40.40logger){cyan} %clr(:){yellow} %m%n"
