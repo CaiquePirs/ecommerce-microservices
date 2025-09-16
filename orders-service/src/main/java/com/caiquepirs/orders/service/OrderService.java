@@ -1,6 +1,7 @@
 package com.caiquepirs.orders.service;
 
 import com.caiquepirs.orders.calculator.OrderCalculator;
+import com.caiquepirs.orders.client.ClientBankingService;
 import com.caiquepirs.orders.controller.dto.OrderRequestDTO;
 import com.caiquepirs.orders.mapper.OrderItemMapper;
 import com.caiquepirs.orders.mapper.OrderMapper;
@@ -11,6 +12,7 @@ import com.caiquepirs.orders.validator.OrderValidator;
 import com.caiquepirs.orders.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -21,12 +23,15 @@ public class OrderService {
 
     private final OrderRepository repository;
     private final OrderValidator validator;
+    private final ClientBankingService clientBankingService;
     private final OrderCalculator calculator;
     private final OrderMapper orderMapper;
     private final OrderItemMapper itemMapper;
 
+    @Transactional
     public Order order(OrderRequestDTO orderRequestDTO){
         Order order = orderMapper.toEntity(orderRequestDTO);
+        validator.validate(order);
 
         List<OrderItem> items = orderRequestDTO.items()
                 .stream()
@@ -35,12 +40,17 @@ public class OrderService {
 
         items.forEach(i -> i.setOrder(order));
         order.setItems(items);
+
         BigDecimal totalOrder = calculator.calculateTotalOrder(order);
 
         order.setTotal(totalOrder);
         order.setStatus(StatusOrder.PLACED);
+        repository.save(order);
 
-       return repository.save(order);
+        String paymentKey = clientBankingService.requestPayment(order);
+        order.setPaymentKey(paymentKey);
+
+        return order;
     }
 
 }
