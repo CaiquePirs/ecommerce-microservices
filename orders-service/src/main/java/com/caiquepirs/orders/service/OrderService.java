@@ -3,6 +3,7 @@ package com.caiquepirs.orders.service;
 import com.caiquepirs.orders.calculator.OrderCalculator;
 import com.caiquepirs.orders.client.gateway.impl.ClientBankingServiceImpl;
 import com.caiquepirs.orders.controller.dto.OrderRequestDTO;
+import com.caiquepirs.orders.controller.handler.exceptions.ValidationException;
 import com.caiquepirs.orders.mapper.OrderItemMapper;
 import com.caiquepirs.orders.mapper.OrderMapper;
 import com.caiquepirs.orders.model.Order;
@@ -51,6 +52,11 @@ public class OrderService {
         order.setPaymentKey(paymentKey);
 
         return order;
+    }
+
+    public Order findOrderById(Long orderId){
+        return repository.findById(orderId)
+                .orElseThrow(() -> new ValidationException("Order ID not found"));
     }
 
 }

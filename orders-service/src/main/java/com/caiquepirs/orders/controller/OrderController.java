@@ -7,10 +7,7 @@ import com.caiquepirs.orders.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -24,6 +21,12 @@ public class OrderController {
     public ResponseEntity<Object> create(@RequestBody OrderRequestDTO orderRequest){
         Order order = orderService.order(orderRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(order.getId());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Order> findOrderById(@PathVariable(value = "id") Long orderId){
+        Order order = orderService.findOrderById(orderId);
+        return ResponseEntity.ok(order);
     }
 
 }
