@@ -1,7 +1,7 @@
 package com.caiquepirs.orders.service;
 
 import com.caiquepirs.orders.calculator.OrderCalculator;
-import com.caiquepirs.orders.client.ClientBankingService;
+import com.caiquepirs.orders.client.gateway.impl.ClientBankingServiceImpl;
 import com.caiquepirs.orders.controller.dto.OrderRequestDTO;
 import com.caiquepirs.orders.mapper.OrderItemMapper;
 import com.caiquepirs.orders.mapper.OrderMapper;
@@ -23,7 +23,7 @@ public class OrderService {
 
     private final OrderRepository repository;
     private final OrderValidator validator;
-    private final ClientBankingService clientBankingService;
+    private final ClientBankingServiceImpl clientBankingServiceImpl;
     private final OrderCalculator calculator;
     private final OrderMapper orderMapper;
     private final OrderItemMapper itemMapper;
@@ -47,7 +47,7 @@ public class OrderService {
         order.setStatus(StatusOrder.PLACED);
         repository.save(order);
 
-        String paymentKey = clientBankingService.requestPayment(order);
+        String paymentKey = clientBankingServiceImpl.paymentCode(order);
         order.setPaymentKey(paymentKey);
 
         return order;
