@@ -2,6 +2,7 @@ package com.caiquepirs.orders.validator;
 
 import com.caiquepirs.orders.client.services.CustomerClientService;
 import com.caiquepirs.orders.client.services.ProductsClientService;
+import com.caiquepirs.orders.controller.handler.exceptions.ValidationException;
 import com.caiquepirs.orders.model.Order;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class OrderValidator {
             log.info("Customer with id {} found successfully", customerId);
 
         } catch (FeignException.NotFound e) {
-            throw new RuntimeException("Customer ID: " + customerId + " Not found");
+            throw new ValidationException("Customer with ID: " + customerId + " Not found");
         }
     }
 
@@ -37,7 +38,7 @@ public class OrderValidator {
             log.info("Product with id {} found successfully", productId);
 
         } catch (FeignException.NotFound e){
-            throw new RuntimeException("Product with ID: " + productId + "Not found");
+            throw new ValidationException("Product with ID: " + productId + "Not found");
         }
     }
 
