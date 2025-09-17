@@ -24,3 +24,10 @@ logging:
    pattern:
      console: "%clr(%d{dd-MM-yyyy HH:mm:ss}){faint} %clr(%5p) %clr([%t]){faint} %clr(%-40.40logger){cyan} %clr(:){yellow} %m%n"
 
+service-orders:
+  orders:
+    clients:
+      products:
+        url: 'http://localhost:8081/api/products'
+      customers:
+        url: 'http://localhost:8082/api/customers'
