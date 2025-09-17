@@ -2,6 +2,7 @@ package com.caiquepirs.orders.client.gateway.impl;
 
 import com.caiquepirs.orders.client.gateway.contract.PaymentGateway;
 import com.caiquepirs.orders.controller.dto.ReceiveCallbackPaymentDTO;
+import com.caiquepirs.orders.controller.handler.exceptions.OrderNotFoundException;
 import com.caiquepirs.orders.controller.handler.exceptions.ValidationException;
 import com.caiquepirs.orders.model.Order;
 import com.caiquepirs.orders.model.enums.StatusOrder;
@@ -31,7 +32,7 @@ public class ClientBankingServiceImpl implements PaymentGateway {
         String paymentKey = receiveCallbackPaymentDTO.paymentKey();
 
         Order order = orderRepository.findByIdAndPaymentKey(orderId, paymentKey)
-                .orElseThrow(() -> new ValidationException(
+                .orElseThrow(() -> new OrderNotFoundException(
                         "Order with ID: " + orderId +
                         " and PaymentKey: " + paymentKey + " not found.")
                 );

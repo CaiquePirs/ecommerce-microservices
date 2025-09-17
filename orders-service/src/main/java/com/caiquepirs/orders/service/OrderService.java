@@ -4,6 +4,7 @@ import com.caiquepirs.orders.calculator.OrderCalculator;
 import com.caiquepirs.orders.client.gateway.impl.ClientBankingServiceImpl;
 import com.caiquepirs.orders.controller.dto.OrderRequestDTO;
 import com.caiquepirs.orders.controller.dto.UpdateOrderPaymentDTO;
+import com.caiquepirs.orders.controller.handler.exceptions.OrderNotFoundException;
 import com.caiquepirs.orders.controller.handler.exceptions.ValidationException;
 import com.caiquepirs.orders.mapper.OrderItemMapper;
 import com.caiquepirs.orders.mapper.OrderMapper;
@@ -52,7 +53,7 @@ public class OrderService {
 
     public Order findOrderById(Long orderId){
         return repository.findById(orderId)
-                .orElseThrow(() -> new ValidationException("Order ID not found"));
+                .orElseThrow(() -> new OrderNotFoundException("Order ID not found"));
     }
 
     @Transactional

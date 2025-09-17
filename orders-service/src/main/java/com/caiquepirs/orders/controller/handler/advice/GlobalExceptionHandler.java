@@ -2,6 +2,7 @@ package com.caiquepirs.orders.controller.handler.advice;
 
 import com.caiquepirs.orders.controller.handler.dto.ErrorMessage;
 import com.caiquepirs.orders.controller.handler.dto.ErrorResponse;
+import com.caiquepirs.orders.controller.handler.exceptions.OrderNotFoundException;
 import com.caiquepirs.orders.controller.handler.exceptions.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,4 +29,13 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(OrderNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleOrderNotFound(OrderNotFoundException e){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                generate(HttpStatus.NOT_FOUND.value(),
+                        e.getMessage(),
+                        List.of(new ErrorMessage("Order", e.getMessage()))
+                )
+        );
+    }
 }
