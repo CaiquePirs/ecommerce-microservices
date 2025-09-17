@@ -1,6 +1,7 @@
 package com.caiquepirs.orders.controller;
 
 import com.caiquepirs.orders.controller.dto.OrderRequestDTO;
+import com.caiquepirs.orders.controller.dto.UpdateOrderPaymentDTO;
 import com.caiquepirs.orders.mapper.OrderMapper;
 import com.caiquepirs.orders.model.Order;
 import com.caiquepirs.orders.service.OrderService;
@@ -29,4 +30,9 @@ public class OrderController {
         return ResponseEntity.ok(order);
     }
 
+    @PutMapping("/update-payment")
+    public ResponseEntity<Object> updateOrderPayment(@RequestBody UpdateOrderPaymentDTO updateOrderPaymentDTO){
+        orderService.addNewPayment(updateOrderPaymentDTO);
+        return ResponseEntity.noContent().build();
+    }
 }

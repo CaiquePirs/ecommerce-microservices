@@ -1,7 +1,7 @@
 package com.caiquepirs.orders.client.gateway.impl;
 
 import com.caiquepirs.orders.client.gateway.contract.PaymentGateway;
-import com.caiquepirs.orders.controller.dto.ReceiveCallbackPayment;
+import com.caiquepirs.orders.controller.dto.ReceiveCallbackPaymentDTO;
 import com.caiquepirs.orders.controller.handler.exceptions.ValidationException;
 import com.caiquepirs.orders.model.Order;
 import com.caiquepirs.orders.model.enums.StatusOrder;
@@ -26,9 +26,9 @@ public class ClientBankingServiceImpl implements PaymentGateway {
     }
 
     @Override
-    public void updateStatusPayment(ReceiveCallbackPayment receiveCallbackPayment) {
-        Long orderId = receiveCallbackPayment.orderId();
-        String paymentKey = receiveCallbackPayment.paymentKey();
+    public void updateStatusPayment(ReceiveCallbackPaymentDTO receiveCallbackPaymentDTO) {
+        Long orderId = receiveCallbackPaymentDTO.orderId();
+        String paymentKey = receiveCallbackPaymentDTO.paymentKey();
 
         Order order = orderRepository.findByIdAndPaymentKey(orderId, paymentKey)
                 .orElseThrow(() -> new ValidationException(
@@ -36,11 +36,12 @@ public class ClientBankingServiceImpl implements PaymentGateway {
                         " and PaymentKey: " + paymentKey + " not found.")
                 );
 
-        if(receiveCallbackPayment.status()){
+        if(receiveCallbackPaymentDTO.status()){
             order.setStatus(StatusOrder.PAID);
+            order.setNotes(receiveCallbackPaymentDTO.notes());
         } else {
             order.setStatus(StatusOrder.PAYMENT_ERROR);
-            order.setNotes(receiveCallbackPayment.notes());
+            order.setNotes(receiveCallbackPaymentDTO.notes());
         }
 
         orderRepository.save(order);

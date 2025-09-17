@@ -3,11 +3,13 @@ package com.caiquepirs.orders.service;
 import com.caiquepirs.orders.calculator.OrderCalculator;
 import com.caiquepirs.orders.client.gateway.impl.ClientBankingServiceImpl;
 import com.caiquepirs.orders.controller.dto.OrderRequestDTO;
+import com.caiquepirs.orders.controller.dto.UpdateOrderPaymentDTO;
 import com.caiquepirs.orders.controller.handler.exceptions.ValidationException;
 import com.caiquepirs.orders.mapper.OrderItemMapper;
 import com.caiquepirs.orders.mapper.OrderMapper;
 import com.caiquepirs.orders.model.Order;
 import com.caiquepirs.orders.model.OrderItem;
+import com.caiquepirs.orders.model.PaymentDetails;
 import com.caiquepirs.orders.model.enums.StatusOrder;
 import com.caiquepirs.orders.validator.OrderValidator;
 import com.caiquepirs.orders.repository.OrderRepository;
@@ -15,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -40,23 +41,40 @@ public class OrderService {
                 .toList();
 
         items.forEach(i -> i.setOrder(order));
+
         order.setItems(items);
-
-        BigDecimal totalOrder = calculator.calculateTotalOrder(order);
-
-        order.setTotal(totalOrder);
+        order.setTotal(calculator.calculateTotalOrder(order));
+        order.setPaymentKey(clientBankingServiceImpl.paymentCode(order));
         order.setStatus(StatusOrder.PLACED);
-        repository.save(order);
 
-        String paymentKey = clientBankingServiceImpl.paymentCode(order);
-        order.setPaymentKey(paymentKey);
-
-        return order;
+        return repository.save(order);
     }
 
     public Order findOrderById(Long orderId){
         return repository.findById(orderId)
                 .orElseThrow(() -> new ValidationException("Order ID not found"));
+    }
+
+    @Transactional
+    public void addNewPayment(UpdateOrderPaymentDTO updateOrderPaymentDTO){
+        Order order = findOrderById(updateOrderPaymentDTO.orderId());
+
+        if(order.getStatus().equals(StatusOrder.PAID)) {
+            throw new ValidationException("This order is already paid and cannot be changed.");
+        }
+
+        PaymentDetails paymentDetails = PaymentDetails
+                .builder()
+                .paymentType(updateOrderPaymentDTO.paymentType())
+                .data(updateOrderPaymentDTO.paymentData())
+                .build();
+
+        order.setPaymentDetails(paymentDetails);
+        order.setPaymentKey(clientBankingServiceImpl.paymentCode(order));
+        order.setStatus(StatusOrder.PLACED);
+        order.setNotes("New payment added to order");
+
+        repository.save(order);
     }
 
 }

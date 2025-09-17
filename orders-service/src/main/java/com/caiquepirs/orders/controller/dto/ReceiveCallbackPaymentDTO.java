@@ -1,6 +1,6 @@
 package com.caiquepirs.orders.controller.dto;
 
-public record ReceiveCallbackPayment(
+public record ReceiveCallbackPaymentDTO(
         Long orderId,
         String paymentKey,
         String notes,

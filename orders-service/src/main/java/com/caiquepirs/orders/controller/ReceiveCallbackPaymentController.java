@@ -1,7 +1,7 @@
 package com.caiquepirs.orders.controller;
 
 import com.caiquepirs.orders.client.gateway.impl.ClientBankingServiceImpl;
-import com.caiquepirs.orders.controller.dto.ReceiveCallbackPayment;
+import com.caiquepirs.orders.controller.dto.ReceiveCallbackPaymentDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +15,12 @@ public class ReceiveCallbackPaymentController {
 
     @PostMapping
     public ResponseEntity<Object> updateStatusPayment(
-            @RequestBody ReceiveCallbackPayment receiveCallbackPayment,
+            @RequestBody ReceiveCallbackPaymentDTO receiveCallbackPaymentDTO,
             @RequestHeader(required = true, name = "apiKey") String apiKey){
 
        // validation logic to validate apikey
 
-        clientBankingService.updateStatusPayment(receiveCallbackPayment);
+        clientBankingService.updateStatusPayment(receiveCallbackPaymentDTO);
         return ResponseEntity.ok().build();
     }
 
