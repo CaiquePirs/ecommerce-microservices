@@ -4,6 +4,7 @@ import com.caiquepirs.orders.client.services.representation.ProductRepresentatio
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(
         name = "ProductsClient",
@@ -11,5 +12,5 @@ import org.springframework.web.bind.annotation.GetMapping;
 public interface ProductsClientService {
 
     @GetMapping("/{id}")
-    ResponseEntity<ProductRepresentationDTO> getProduct(Long id);
+    ResponseEntity<ProductRepresentationDTO> getProduct(@PathVariable Long id);
 }
