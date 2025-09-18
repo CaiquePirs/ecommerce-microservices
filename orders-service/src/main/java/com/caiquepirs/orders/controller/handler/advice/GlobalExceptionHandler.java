@@ -1,7 +1,7 @@
 package com.caiquepirs.orders.controller.handler.advice;
 
-import com.caiquepirs.orders.controller.handler.dto.ErrorMessage;
-import com.caiquepirs.orders.controller.handler.dto.ErrorResponse;
+import com.caiquepirs.orders.controller.handler.errors.ErrorMessage;
+import com.caiquepirs.orders.controller.handler.errors.ErrorResponse;
 import com.caiquepirs.orders.controller.handler.exceptions.OrderNotFoundException;
 import com.caiquepirs.orders.controller.handler.exceptions.PaymentErrorException;
 import com.caiquepirs.orders.controller.handler.exceptions.ValidationException;

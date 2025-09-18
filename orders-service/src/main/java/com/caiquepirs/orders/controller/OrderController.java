@@ -2,8 +2,9 @@ package com.caiquepirs.orders.controller;
 
 import com.caiquepirs.orders.controller.dto.OrderRequestDTO;
 import com.caiquepirs.orders.controller.dto.UpdateOrderPaymentDTO;
-import com.caiquepirs.orders.mapper.OrderMapper;
 import com.caiquepirs.orders.model.Order;
+import com.caiquepirs.orders.controller.dto.OrderResponseDTO;
+import com.caiquepirs.orders.generate.GenerateOrderResponse;
 import com.caiquepirs.orders.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,22 +17,22 @@ import org.springframework.web.bind.annotation.*;
 public class OrderController {
 
     private final OrderService orderService;
-    private final OrderMapper mapper;
+    private final GenerateOrderResponse orderResponse;
 
     @PostMapping
-    public ResponseEntity<Object> create(@RequestBody OrderRequestDTO orderRequest){
+    public ResponseEntity<OrderResponseDTO> create(@RequestBody OrderRequestDTO orderRequest){
         Order order = orderService.order(orderRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(order.getId());
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderResponse.mapToResponse(order));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Order> findOrderById(@PathVariable(value = "id") Long orderId){
-        Order order = orderService.findOrderById(orderId);
-        return ResponseEntity.ok(order);
+    public ResponseEntity<OrderResponseDTO> findOrderById(@PathVariable(value = "id") Long orderId){
+        Order order = orderService.findOrderById(orderId);;
+        return ResponseEntity.ok(orderResponse.mapToResponse(order));
     }
 
     @PutMapping("/update-payment")
-    public ResponseEntity<Object> updateOrderPayment(@RequestBody UpdateOrderPaymentDTO updateOrderPaymentDTO){
+    public ResponseEntity<Void> updateOrderPayment(@RequestBody UpdateOrderPaymentDTO updateOrderPaymentDTO){
         orderService.addNewPayment(updateOrderPaymentDTO);
         return ResponseEntity.noContent().build();
     }
