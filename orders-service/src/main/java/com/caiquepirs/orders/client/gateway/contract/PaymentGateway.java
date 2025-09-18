@@ -4,6 +4,6 @@ import com.caiquepirs.orders.controller.dto.ReceiveCallbackPaymentDTO;
 import com.caiquepirs.orders.model.Order;
 
 public interface PaymentGateway {
-    String paymentCode(Order order);
-    void updateStatusPayment(ReceiveCallbackPaymentDTO receiveCallbackPaymentDTO);
+    void callbackPayment(ReceiveCallbackPaymentDTO receiveCallbackPaymentDTO);
+    String pay(Order order);
 }

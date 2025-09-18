@@ -20,7 +20,7 @@ public class ReceiveCallbackPaymentController {
 
        // validation logic to validate apikey
 
-        clientBankingService.updateStatusPayment(receiveCallbackPaymentDTO);
+        clientBankingService.callbackPayment(receiveCallbackPaymentDTO);
         return ResponseEntity.ok().build();
     }
 

@@ -2,6 +2,7 @@ package com.caiquepirs.orders.service;
 
 import com.caiquepirs.orders.calculator.OrderCalculator;
 import com.caiquepirs.orders.client.gateway.impl.ClientBankingServiceImpl;
+import com.caiquepirs.orders.client.gateway.strategy.factory.PaymentMethodFactory;
 import com.caiquepirs.orders.controller.dto.OrderRequestDTO;
 import com.caiquepirs.orders.controller.dto.UpdateOrderPaymentDTO;
 import com.caiquepirs.orders.controller.handler.exceptions.OrderNotFoundException;
@@ -27,6 +28,7 @@ public class OrderService {
     private final OrderRepository repository;
     private final OrderValidator validator;
     private final ClientBankingServiceImpl clientBankingServiceImpl;
+    private final PaymentMethodFactory paymentMethodFactory;
     private final OrderCalculator calculator;
     private final OrderMapper orderMapper;
     private final OrderItemMapper itemMapper;
@@ -43,9 +45,11 @@ public class OrderService {
 
         items.forEach(i -> i.setOrder(order));
 
+        String paymentKey = paymentMethodFactory.pay(order);
+
         order.setItems(items);
         order.setTotal(calculator.calculateTotalOrder(order));
-        order.setPaymentKey(clientBankingServiceImpl.paymentCode(order));
+        order.setPaymentKey(paymentKey);
         order.setStatus(StatusOrder.PLACED);
 
         return repository.save(order);
@@ -71,7 +75,7 @@ public class OrderService {
                 .build();
 
         order.setPaymentDetails(paymentDetails);
-        order.setPaymentKey(clientBankingServiceImpl.paymentCode(order));
+        order.setPaymentKey(clientBankingServiceImpl.pay(order));
         order.setStatus(StatusOrder.PLACED);
         order.setNotes("New payment added to order");
 

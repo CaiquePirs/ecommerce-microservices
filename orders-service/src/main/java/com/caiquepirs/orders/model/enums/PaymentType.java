@@ -4,5 +4,5 @@ public enum PaymentType {
     CREDIT,
     DEBIT,
     PIX,
-    MONEY,
+    BOLETO,
 }
