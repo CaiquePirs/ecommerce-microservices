@@ -20,9 +20,9 @@ public class OrderController {
     private final GenerateOrderResponse orderResponse;
 
     @PostMapping
-    public ResponseEntity<OrderResponseDTO> create(@RequestBody OrderRequestDTO orderRequest){
-        Order order = orderService.order(orderRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(orderResponse.mapToResponse(order));
+    public ResponseEntity<Void> create(@RequestBody OrderRequestDTO orderRequest){
+        orderService.order(orderRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/{id}")

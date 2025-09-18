@@ -5,18 +5,18 @@ import com.caiquepirs.orders.controller.dto.ReceiveCallbackPaymentDTO;
 import com.caiquepirs.orders.controller.handler.exceptions.OrderNotFoundException;
 import com.caiquepirs.orders.model.Order;
 import com.caiquepirs.orders.model.enums.StatusOrder;
+import com.caiquepirs.orders.publisher.PaymentPublisher;
 import com.caiquepirs.orders.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import java.util.UUID;
 
 @Component
-@Slf4j
 @RequiredArgsConstructor
 public class ClientBankingServiceImpl implements PaymentGateway {
 
     private final OrderRepository orderRepository;
+    private final PaymentPublisher paymentPublisher;
 
     public String pay(Order order){
         return UUID.randomUUID().toString();
@@ -36,6 +36,9 @@ public class ClientBankingServiceImpl implements PaymentGateway {
         if(receiveCallbackPaymentDTO.status()){
             order.setStatus(StatusOrder.PAID);
             order.setNotes(receiveCallbackPaymentDTO.notes());
+
+            paymentPublisher.publish(order);
+
         } else {
             order.setStatus(StatusOrder.PAYMENT_ERROR);
             order.setNotes(receiveCallbackPaymentDTO.notes());

@@ -26,7 +26,6 @@ import java.util.List;
 public class OrderService {
 
     private final OrderRepository repository;
-    private final ClientBankingServiceImpl clientBankingServiceImpl;
     private final PaymentMethodFactory paymentMethodFactory;
     private final OrderCalculator calculator;
     private final OrderMapper orderMapper;
@@ -34,7 +33,7 @@ public class OrderService {
     private final ClientsRepresentationService clientService;
 
     @Transactional
-    public Order order(OrderRequestDTO orderRequestDTO) {
+    public void order(OrderRequestDTO orderRequestDTO) {
         Order order = orderMapper.toEntity(orderRequestDTO);
 
         clientService.findCustomer(order.getCustomerId());
@@ -54,7 +53,7 @@ public class OrderService {
         order.setPaymentKey(paymentKey);
         order.setStatus(StatusOrder.PLACED);
 
-        return repository.save(order);
+        repository.save(order);
     }
 
     public Order findOrderById(Long orderId) {
@@ -76,8 +75,10 @@ public class OrderService {
                 .data(updateOrderPaymentDTO.paymentData())
                 .build();
 
+        String paymentKey = paymentMethodFactory.pay(order);
+
         order.setPaymentDetails(paymentDetails);
-        order.setPaymentKey(clientBankingServiceImpl.pay(order));
+        order.setPaymentKey(paymentKey);
         order.setStatus(StatusOrder.PLACED);
         order.setNotes("New payment added to order");
 
