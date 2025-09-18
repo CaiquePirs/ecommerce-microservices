@@ -31,3 +31,11 @@ service-orders:
         url: 'http://localhost:8081/api/products'
       customers:
         url: 'http://localhost:8082/api/customers'
+
+  config:
+    kafka:
+      server-url: 'http://localhost:29092'
+      topics:
+        orders-paid: 'ecommerce.orders-paid'
+        orders-shipped: 'ecommerce.orders-shipped'
+        orders-invoiced: 'ecommerce.orders-invoiced'
