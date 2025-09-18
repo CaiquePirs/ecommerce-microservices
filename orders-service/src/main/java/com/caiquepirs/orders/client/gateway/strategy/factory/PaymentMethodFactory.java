@@ -1,9 +1,9 @@
 package com.caiquepirs.orders.client.gateway.strategy.factory;
 
-import com.caiquepirs.orders.client.gateway.strategy.imp.BoletoPaymentImplStrategy;
-import com.caiquepirs.orders.client.gateway.strategy.imp.CreditPaymentImpStrategy;
-import com.caiquepirs.orders.client.gateway.strategy.imp.DebitPaymentImpStrategy;
-import com.caiquepirs.orders.client.gateway.strategy.imp.PixPaymentImpStrategy;
+import com.caiquepirs.orders.client.gateway.strategy.impl.BoletoPaymentImplStrategy;
+import com.caiquepirs.orders.client.gateway.strategy.impl.CreditPaymentImpStrategy;
+import com.caiquepirs.orders.client.gateway.strategy.impl.DebitPaymentImpStrategy;
+import com.caiquepirs.orders.client.gateway.strategy.impl.PixPaymentImpStrategy;
 import com.caiquepirs.orders.controller.handler.exceptions.PaymentErrorException;
 import com.caiquepirs.orders.model.Order;
 import com.caiquepirs.orders.model.PaymentDetails;

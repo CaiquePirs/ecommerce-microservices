@@ -1,4 +1,4 @@
-package com.caiquepirs.orders.client.gateway.strategy.imp;
+package com.caiquepirs.orders.client.gateway.strategy.impl;
 
 import com.caiquepirs.orders.client.gateway.strategy.PaymentMethodStrategy;
 import com.caiquepirs.orders.client.gateway.impl.ClientBankingServiceImpl;

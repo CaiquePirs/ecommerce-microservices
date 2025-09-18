@@ -1,4 +1,4 @@
-package com.caiquepirs.orders.client.gateway.strategy.imp;
+package com.caiquepirs.orders.client.gateway.strategy.impl;
 
 import com.caiquepirs.orders.client.gateway.strategy.PaymentMethodStrategy;
 import com.caiquepirs.orders.client.gateway.impl.ClientBankingServiceImpl;
@@ -8,11 +8,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class BoletoPaymentImplStrategy implements PaymentMethodStrategy {
+public class CreditPaymentImpStrategy implements PaymentMethodStrategy {
 
     private final ClientBankingServiceImpl clientBankingService;
 
-    @Override
     public String pay(Order order) {
         return clientBankingService.pay(order);
     }
