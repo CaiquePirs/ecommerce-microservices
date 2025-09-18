@@ -1,11 +1,11 @@
-package com.caiquepirs.orders.publisher.representation;
+package com.caiquepirs.orders.controller.dto;
 
 import lombok.Builder;
 
 import java.math.BigDecimal;
 
 @Builder
-public record ItemOrderRepresentation(Long id,
+public record ItemOrderResponseDTO(Long id,
                                       String productName,
                                       Integer quantity,
                                       BigDecimal unitValue,

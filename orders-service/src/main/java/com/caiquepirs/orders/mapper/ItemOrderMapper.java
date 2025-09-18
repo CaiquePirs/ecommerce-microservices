@@ -1,11 +1,11 @@
 package com.caiquepirs.orders.mapper;
 
-import com.caiquepirs.orders.controller.dto.OrderItemRequestDTO;
+import com.caiquepirs.orders.controller.dto.ItemOrderRequestDTO;
 import com.caiquepirs.orders.model.OrderItem;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface OrderItemMapper {
+public interface ItemOrderMapper {
 
-    OrderItem toEntity(OrderItemRequestDTO dto);
+    OrderItem toEntity(ItemOrderRequestDTO dto);
 }

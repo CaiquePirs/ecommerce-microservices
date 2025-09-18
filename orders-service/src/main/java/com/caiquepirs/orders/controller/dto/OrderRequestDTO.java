@@ -6,6 +6,6 @@ import java.util.List;
 
 public record OrderRequestDTO(
         Long customerId,
-        List<OrderItemRequestDTO> items,
+        List<ItemOrderRequestDTO> items,
         PaymentDetails paymentDetails) {
 }

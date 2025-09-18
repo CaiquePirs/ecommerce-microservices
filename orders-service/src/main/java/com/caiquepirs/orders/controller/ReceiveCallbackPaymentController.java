@@ -14,7 +14,7 @@ public class ReceiveCallbackPaymentController {
     private final ClientBankingServiceImpl clientBankingService;
 
     @PostMapping
-    public ResponseEntity<Object> updateStatusPayment(
+    public ResponseEntity<Void> updateStatusPayment(
             @RequestBody ReceiveCallbackPaymentDTO receiveCallbackPaymentDTO,
             @RequestHeader(required = true, name = "apiKey") String apiKey){
 
@@ -23,7 +23,5 @@ public class ReceiveCallbackPaymentController {
         clientBankingService.callbackPayment(receiveCallbackPaymentDTO);
         return ResponseEntity.ok().build();
     }
-
-
 
 }
