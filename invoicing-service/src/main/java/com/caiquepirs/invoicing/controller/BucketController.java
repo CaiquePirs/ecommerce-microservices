@@ -4,15 +4,14 @@ import com.caiquepirs.invoicing.bucket.BucketFile;
 import com.caiquepirs.invoicing.bucket.BucketService;
 import com.caiquepirs.invoicing.controller.advice.exceptions.InputFileException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
+import java.net.URI;
 import java.util.Objects;
 
 @RestController
@@ -35,8 +34,20 @@ public class BucketController {
         } catch (Exception e){
             throw new InputFileException("Error processing file: " + e.getMessage());
         }
-
     }
 
+    @GetMapping
+    public ResponseEntity<String> getFileUrl(@RequestParam String fileName) {
+        try {
+            String fileUrl = service.getFileUrl(fileName);
+
+            return ResponseEntity.status(HttpStatus.TEMPORARY_REDIRECT)
+                    .location(URI.create(fileUrl))
+                    .build();
+
+        } catch (Exception e) {
+            throw new InputFileException("Error processing file: " + e.getMessage());
+        }
+    }
 
 }
