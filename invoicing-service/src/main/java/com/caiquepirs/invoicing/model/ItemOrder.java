@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 @Builder
 public record ItemOrder(
         Long id,
-        String description,
+        String name,
         BigDecimal unitValue,
         Integer quantity) {
 
