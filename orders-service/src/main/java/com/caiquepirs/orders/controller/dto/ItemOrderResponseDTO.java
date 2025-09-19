@@ -6,8 +6,8 @@ import java.math.BigDecimal;
 
 @Builder
 public record ItemOrderResponseDTO(Long id,
-                                      String productName,
-                                      Integer quantity,
-                                      BigDecimal unitValue,
-                                      BigDecimal total) {
+                                   String productName,
+                                   Integer quantity,
+                                   BigDecimal unitValue,
+                                   BigDecimal total) {
 }
