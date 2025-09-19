@@ -33,7 +33,7 @@ public class OrderMapper {
         return orderRepresentation.items().stream()
                 .map(i -> ItemOrder.builder()
                         .id(i.id())
-                        .description(i.productName())
+                        .name(i.productName())
                         .unitValue(i.unitValue())
                         .quantity(i.quantity())
                         .build()).toList();

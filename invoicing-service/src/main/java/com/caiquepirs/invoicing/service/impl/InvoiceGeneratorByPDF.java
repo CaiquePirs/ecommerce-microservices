@@ -18,7 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class InvoiceGeneratorByPDF implements InvoiceGenerator<byte[]> {
 
-    @Value("${classpath:reports/invoicing.jrxml}")
+    @Value("classpath:reports/invoicing.jrxml")
     private Resource invoicing;
 
     @Override
