@@ -2,6 +2,7 @@ package com.caiquepirs.invoicing.controller.advice.handler;
 
 import com.caiquepirs.invoicing.controller.advice.erros.ErrorMessage;
 import com.caiquepirs.invoicing.controller.advice.erros.ErrorResponse;
+import com.caiquepirs.invoicing.controller.advice.exceptions.FailedToGenerateFileException;
 import com.caiquepirs.invoicing.controller.advice.exceptions.InputFileException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +39,15 @@ public class GlobalExceptionHandler {
                 generator(HttpStatus.BAD_REQUEST.value(),
                         e.getMessage(),
                         List.of(new ErrorMessage("Error File", e.getMessage())))
+        );
+    }
+
+    @ExceptionHandler(FailedToGenerateFileException.class)
+    public ResponseEntity<ErrorResponse> handleFailedToGenerate(FailedToGenerateFileException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                generator(HttpStatus.BAD_REQUEST.value(),
+                        e.getMessage(),
+                        List.of(new ErrorMessage("Error to generate file", e.getMessage())))
         );
     }
 }
