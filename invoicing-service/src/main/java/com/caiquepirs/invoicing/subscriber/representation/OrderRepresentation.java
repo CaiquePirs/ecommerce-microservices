@@ -16,5 +16,6 @@ public record OrderRepresentation(
         String street,
         LocalDateTime orderDate,
         BigDecimal total,
+        String status,
         List<ItemOrderRepresentation> items) {
 }
