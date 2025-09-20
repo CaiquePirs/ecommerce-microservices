@@ -15,6 +15,7 @@ public class OrderPaidSubscriber {
 
     private final ObjectMapper objectMapper;
     private final InvoicingService invoicingService;
+    private final InvoicingPublisher invoicingPublisher;
     private final OrderMapper orderMapper;
 
     @KafkaListener(groupId = "ecommerce-invoicing", topics = "${ecommerce.config.kafka.topics.orders-paid}")
@@ -24,6 +25,7 @@ public class OrderPaidSubscriber {
             Order order = orderMapper.mapOrder(orderRepresentation);
 
             invoicingService.generateInvoiceByPdf(order);
+            invoicingPublisher.publisher(order);
 
         } catch (Exception e){
             throw new RuntimeException("Error: " + e.getMessage());

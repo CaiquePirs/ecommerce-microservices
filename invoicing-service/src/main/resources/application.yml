@@ -13,6 +13,7 @@ ecommerce:
     kafka:
       topics:
         orders-paid: ecommerce.orders-paid
+        orders-invoiced: ecommerce.orders-invoiced
 
 server:
   port: 8084
