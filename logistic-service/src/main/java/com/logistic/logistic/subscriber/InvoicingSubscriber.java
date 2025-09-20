@@ -15,7 +15,7 @@ public class InvoicingSubscriber {
     private final ShippingLogisticService shippingLogisticService;
 
     @KafkaListener(groupId = "${spring.kafka.consumer.group-id}",
-                   topics = "${ecommerce.config.kafka.topics.orders-shipped}")
+                   topics = "${ecommerce.config.kafka.topics.orders-invoiced}")
     public void listener(String json) {
         try {
             var updateInvoiceOrder = objectMapper.readValue(json, UpdateInvoiceOrderRepresentation.class);
