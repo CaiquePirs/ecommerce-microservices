@@ -20,5 +20,7 @@ public record OrderResponseDTO(Long id,
                                LocalDateTime orderDate,
                                BigDecimal total,
                                StatusOrder status,
+                               String invoiceUrl,
+                               String trackingCode,
                                List<ItemOrderResponseDTO> items) {
 }

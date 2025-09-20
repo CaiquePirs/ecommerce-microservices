@@ -36,6 +36,8 @@ public class GenerateOrderResponse {
                 .total(calculator.calculateTotalOrder(order))
                 .items(mapToItems(order))
                 .status(order.getStatus())
+                .invoiceUrl(order.getInvoiceUrl())
+                .trackingCode(order.getTrackingCode())
                 .build();
     }
 

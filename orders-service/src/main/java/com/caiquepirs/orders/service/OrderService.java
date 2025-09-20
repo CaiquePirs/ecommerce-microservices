@@ -1,7 +1,6 @@
 package com.caiquepirs.orders.service;
 
 import com.caiquepirs.orders.calculator.OrderCalculator;
-import com.caiquepirs.orders.client.gateway.impl.ClientBankingServiceImpl;
 import com.caiquepirs.orders.client.gateway.strategy.factory.PaymentMethodFactory;
 import com.caiquepirs.orders.client.services.ClientsRepresentationService;
 import com.caiquepirs.orders.controller.dto.OrderRequestDTO;
@@ -15,6 +14,7 @@ import com.caiquepirs.orders.model.OrderItem;
 import com.caiquepirs.orders.model.PaymentDetails;
 import com.caiquepirs.orders.model.enums.StatusOrder;
 import com.caiquepirs.orders.repository.OrderRepository;
+import com.caiquepirs.orders.subscriber.representation.UpdateStatusOrderRepresentation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -81,6 +81,16 @@ public class OrderService {
         order.setPaymentKey(paymentKey);
         order.setStatus(StatusOrder.PLACED);
         order.setNotes("New payment added to order");
+
+        repository.save(order);
+    }
+
+    public void updateStatusOrder(UpdateStatusOrderRepresentation updateOrder){
+        Order order = findOrderById(updateOrder.id());
+
+        if(updateOrder.status() != null) order.setStatus(updateOrder.status());
+        if(updateOrder.urlInvoice() != null) order.setInvoiceUrl(updateOrder.urlInvoice());
+        if(updateOrder.trackingCode() != null) order.setTrackingCode(updateOrder.trackingCode());
 
         repository.save(order);
     }
