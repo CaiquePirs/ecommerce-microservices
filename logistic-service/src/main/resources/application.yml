@@ -12,7 +12,7 @@ ecommerce:
   config:
     kafka:
       topics:
-        orders-paid: ecommerce.orders-paid
+        orders-invoiced: ecommerce.orders-paid
         orders-shipped: ecommerce.orders-shipped
 
 server:
