@@ -7,8 +7,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,9 +29,6 @@ public class Order {
     @Column(nullable = false)
     private Long customerId;
 
-    @Column(name = "order_date", nullable = false)
-    private LocalDateTime orderDate = LocalDateTime.now();
-
     @Column(columnDefinition = "text")
     private String notes;
 
@@ -45,6 +45,9 @@ public class Order {
     @Transient
     private PaymentDetails paymentDetails;
 
+    @Column(name = "order_date", nullable = false)
+    private LocalDate orderDate = LocalDate.now();
+
     @Column(name = "payment_key")
     private String paymentKey;
 
@@ -53,5 +56,11 @@ public class Order {
 
     @Column(name = "invoice_url", columnDefinition = "text")
     private String invoiceUrl;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 
 }

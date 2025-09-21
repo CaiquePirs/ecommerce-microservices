@@ -5,35 +5,40 @@ import com.caiquepirs.orders.controller.dto.UpdateOrderPaymentDTO;
 import com.caiquepirs.orders.model.Order;
 import com.caiquepirs.orders.controller.dto.OrderResponseDTO;
 import com.caiquepirs.orders.generator.GenerateOrderResponse;
-import com.caiquepirs.orders.service.OrderService;
+import com.caiquepirs.orders.useCases.AddNewPaymentToOrderUseCase;
+import com.caiquepirs.orders.useCases.CreateOrderUseCase;
+import com.caiquepirs.orders.useCases.FindOrderByIdUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/api/orders")
 @RequiredArgsConstructor
 public class OrderController {
 
-    private final OrderService orderService;
     private final GenerateOrderResponse orderResponse;
+    private final CreateOrderUseCase createOrderUseCase;
+    private final FindOrderByIdUseCase findOrderByIdUseCase;
+    private final AddNewPaymentToOrderUseCase addNewPaymentToOrderUseCase;
 
     @PostMapping
-    public ResponseEntity<Void> create(@RequestBody OrderRequestDTO orderRequest){
-        orderService.order(orderRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<OrderResponseDTO> create(@RequestBody OrderRequestDTO orderRequest){
+        Order order = createOrderUseCase.execute(orderRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderResponse.mapToResponse(order));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<OrderResponseDTO> findOrderById(@PathVariable(value = "id") Long orderId){
-        Order order = orderService.findOrderById(orderId);;
+        Order order = findOrderByIdUseCase.execute(orderId);
         return ResponseEntity.ok(orderResponse.mapToResponse(order));
     }
 
     @PutMapping("/update-payment")
     public ResponseEntity<Void> updateOrderPayment(@RequestBody UpdateOrderPaymentDTO updateOrderPaymentDTO){
-        orderService.addNewPayment(updateOrderPaymentDTO);
+        addNewPaymentToOrderUseCase.execute(updateOrderPaymentDTO);
         return ResponseEntity.noContent().build();
     }
 }

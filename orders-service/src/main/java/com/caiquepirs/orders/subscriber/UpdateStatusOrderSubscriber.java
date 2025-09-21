@@ -1,8 +1,8 @@
 package com.caiquepirs.orders.subscriber;
 
 import com.caiquepirs.orders.controller.handler.exceptions.ValidationException;
-import com.caiquepirs.orders.service.OrderService;
 import com.caiquepirs.orders.subscriber.representation.UpdateStatusOrderRepresentation;
+import com.caiquepirs.orders.useCases.UpdateStatusOrderUseCase;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class UpdateStatusOrderSubscriber {
 
-    private final OrderService orderService;
+    private final UpdateStatusOrderUseCase updateStatusOrderUseCase;
     private final ObjectMapper objectMapper;
 
     @KafkaListener(
@@ -29,7 +29,7 @@ public class UpdateStatusOrderSubscriber {
                     json,
                     UpdateStatusOrderRepresentation.class);
 
-            orderService.updateStatusOrder(updateStatusOrder);
+            updateStatusOrderUseCase.execute(updateStatusOrder);
 
         } catch (Exception e){
             throw new ValidationException("error receiving order update: " + e.getMessage());

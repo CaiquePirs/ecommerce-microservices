@@ -2,6 +2,7 @@ package com.caiquepirs.orders.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class OrderItem {
 
     @Id
@@ -29,6 +31,8 @@ public class OrderItem {
     private Integer quantity;
 
     @Column(name = "unit_value", nullable = false, precision = 16, scale = 2)
-    private BigDecimal unitValue;
+    private BigDecimal productPrice;
+
+    private BigDecimal total;
 
 }
