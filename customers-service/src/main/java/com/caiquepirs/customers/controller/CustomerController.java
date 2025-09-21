@@ -5,6 +5,7 @@ import com.caiquepirs.customers.controller.dto.CustomerResponseDTO;
 import com.caiquepirs.customers.mapper.CustomerMapper;
 import com.caiquepirs.customers.model.Customer;
 import com.caiquepirs.customers.useCases.CreateCustomerUseCase;
+import com.caiquepirs.customers.useCases.DeactivateCustomerByIdUseCase;
 import com.caiquepirs.customers.useCases.FindCustomerByIdUseCase;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class CustomerController {
 
     private final CreateCustomerUseCase createCustomerUseCase;
     private final FindCustomerByIdUseCase findCustomerByIdUseCase;
+    private final DeactivateCustomerByIdUseCase deactivateCustomerByIdUseCase;
     private final CustomerMapper mapper;
 
     @PostMapping
@@ -31,6 +33,12 @@ public class CustomerController {
     public ResponseEntity<CustomerResponseDTO> findById(@PathVariable(name = "id") Long customerId){
         Customer customer = findCustomerByIdUseCase.execute(customerId);
         return ResponseEntity.ok(mapper.toDTO(customer));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deactivateById(@PathVariable(name = "id") Long customerId){
+        deactivateCustomerByIdUseCase.execute(customerId);
+        return ResponseEntity.noContent().build();
     }
 
 }
