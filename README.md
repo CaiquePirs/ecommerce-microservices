@@ -1,6 +1,6 @@
 # 🛒 E-commerce Microservices
 
-Um sistema de e-commerce construído com **arquitetura de microsserviços**, comunicação assíncrona via **Apache Kafka**, integração segura entre serviços e infraestrutura containerizada com **Docker**.
+Um sistema de e-commerce construído com **arquitetura de microsserviços**, comunicação assíncrona via **Apache Kafka**, integração entre serviços e infraestrutura containerizada com **Docker**.
 O projeto foi desenvolvido como parte do exercicio do curso de **Arquitetura de Microservices com Spring Boot e Apache Kafka**, para demonstrar **boas práticas de arquitetura distribuída**, escalabilidade e desacoplamento.
 
 ---
@@ -30,7 +30,7 @@ Webhooks ↔ [gateway de pagamento simulado] → Kafka
 ## 🛠 Tecnologias
 
 
-- **Java 17** + **Spring Boot**
+- **Java 21** + **Spring Boot**
 - **Apache Kafka** (mensageria e comunicação assíncrona)
 - **Docker & Docker Compose**
 - **Spring Data JPA** (PostgreSQL / MongoDB)
@@ -112,8 +112,3 @@ cd ../products-service && mvn spring-boot:run
 | InvoiceGenerated | invoicing-service | orders-service | Nota fiscal gerada |
 
 ---
-
-
-## 📄 Licença
-
-Este projeto está licenciado sob a **MIT License**.
