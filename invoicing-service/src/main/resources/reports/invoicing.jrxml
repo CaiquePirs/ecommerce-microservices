@@ -1,21 +1,31 @@
 <jasperReport name="nota-fiscal" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4c57712b-e417-432a-8afe-dd1542fa08e5">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+
 	<parameter name="NAME" class="java.lang.String"/>
-	<parameter name="CPF" class="java.lang.String"/>
-	<parameter name="NEIGHBORHOOD" class="java.lang.String"/>
-	<parameter name="NUMBER" class="java.lang.String"/>
-	<parameter name="STREET" class="java.lang.String"/>
+	<parameter name="LAST_NAME" class="java.lang.String"/>
 	<parameter name="EMAIL" class="java.lang.String"/>
 	<parameter name="PHONE" class="java.lang.String"/>
-	<parameter name="ORDER_DATE" class="java.time.LocalDateTime"/>
+	<parameter name="CPF" class="java.lang.String"/>
+
+	<parameter name="NEIGHBORHOOD" class="java.lang.String"/>
+	<parameter name="NUMBER" class="java.lang.String"/>
+	<parameter name="CITY" class="java.lang.String"/>
+	<parameter name="STATE" class="java.lang.String"/>
+	<parameter name="COUNTRY" class="java.lang.String"/>
+	<parameter name="STREET" class="java.lang.String"/>
+
+	<parameter name="ORDER_DATE" class="java.time.LocalDate"/>
 	<parameter name="TOTAL" class="java.math.BigDecimal"/>
+
 	<parameter name="LOGO" class="java.lang.String"/>
+
 	<query language="sql"><![CDATA[]]></query>
 	<field name="id" class="java.lang.Long"/>
-	<field name="name" class="java.lang.String"/>
+	<field name="productName" class="java.lang.String"/>
 	<field name="quantity" class="java.lang.Integer"/>
 	<field name="unitValue" class="java.math.BigDecimal"/>
 	<field name="total" class="java.math.BigDecimal"/>
+
 	<background splitType="Stretch"/>
 	<title height="79" splitType="Stretch">
 		<element kind="image" uuid="9ccf4b3c-dd8b-4b53-9512-c2b033602a22" x="180" y="0" width="200" height="79" onErrorType="Blank">
@@ -34,69 +44,114 @@
 			</box>
 		</element>
 	</pageHeader>
-	<columnHeader height="115" splitType="Stretch">
-		<element kind="staticText" uuid="5de4817c-a614-4daa-a2ae-e30b6e74a338" x="0" y="0" width="60" height="20" vTextAlign="Middle">
+
+	<columnHeader height="180" splitType="Stretch">
+		<!-- Linha 1 -->
+		<element kind="staticText" x="0" y="0" width="60" height="20" vTextAlign="Middle">
 			<text><![CDATA[Nome:]]></text>
 		</element>
-		<element kind="textField" uuid="6453a837-4672-4bb7-b4c2-46cb1217525e" x="60" y="0" width="220" height="20" vTextAlign="Middle">
+		<element kind="textField" x="60" y="0" width="220" height="20" vTextAlign="Middle">
 			<expression><![CDATA[$P{NAME}]]></expression>
 		</element>
-		<element kind="staticText" uuid="612f9a69-5d62-4611-9a2d-b6cf8bfea6e2" x="280" y="0" width="50" height="20" vTextAlign="Middle">
+
+		<element kind="staticText" x="280" y="0" width="70" height="20" vTextAlign="Middle">
+			<text><![CDATA[Sobrenome:]]></text>
+		</element>
+		<element kind="textField" x="350" y="0" width="202" height="20" vTextAlign="Middle">
+			<expression><![CDATA[$P{LAST_NAME}]]></expression>
+		</element>
+
+		<!-- Linha 2 -->
+		<element kind="staticText" x="0" y="25" width="60" height="20" vTextAlign="Middle">
 			<text><![CDATA[CPF:]]></text>
 		</element>
-		<element kind="textField" uuid="f94c5f10-cc12-4e84-a3e6-5ce08821c35e" x="330" y="0" width="222" height="20" vTextAlign="Middle">
+		<element kind="textField" x="60" y="25" width="220" height="20" vTextAlign="Middle">
 			<expression><![CDATA[$P{CPF}]]></expression>
 		</element>
-		<element kind="staticText" uuid="e512d1bd-9c33-464c-9dfa-89071ba28349" x="0" y="20" width="60" height="20" vTextAlign="Middle">
-			<text><![CDATA[Logradouro:]]></text>
-		</element>
-		<element kind="textField" uuid="12a253b1-f723-4476-ae48-3264afdacc4f" x="60" y="20" width="220" height="20" vTextAlign="Middle">
-			<expression><![CDATA[$P{STREET}]]></expression>
-		</element>
-		<element kind="staticText" uuid="d5902696-7f04-49d2-b8cd-0854fdf34e8f" x="280" y="20" width="50" height="20" vTextAlign="Middle">
-			<text><![CDATA[Número:]]></text>
-		</element>
-		<element kind="textField" uuid="232e893a-bea8-4dda-a52f-e9787af28626" x="330" y="20" width="50" height="20" vTextAlign="Middle">
-			<expression><![CDATA[$P{NUMBER}]]></expression>
-		</element>
-		<element kind="staticText" uuid="eebae617-fad7-4426-985b-119efc029004" x="380" y="20" width="50" height="20" vTextAlign="Middle">
-			<text><![CDATA[Bairro:]]></text>
-		</element>
-		<element kind="textField" uuid="33f4a217-2bfb-4565-aa3b-bc9931bfd1f5" x="430" y="20" width="122" height="20" vTextAlign="Middle">
-			<expression><![CDATA[$P{NEIGHBORHOOD}]]></expression>
-		</element>
-		<element kind="staticText" uuid="2a926560-1264-4881-a0b1-409562a4a117" x="0" y="40" width="60" height="20" vTextAlign="Middle">
+
+		<element kind="staticText" x="280" y="25" width="70" height="20" vTextAlign="Middle">
 			<text><![CDATA[Email:]]></text>
 		</element>
-		<element kind="textField" uuid="173d147b-56c2-4c92-9548-f8c0513ffcc4" x="60" y="40" width="220" height="20" vTextAlign="Middle">
+		<element kind="textField" x="350" y="25" width="202" height="20" vTextAlign="Middle">
 			<expression><![CDATA[$P{EMAIL}]]></expression>
 		</element>
-		<element kind="staticText" uuid="35c2df87-7768-4a59-b49c-2506f5474e59" x="280" y="40" width="50" height="20" vTextAlign="Middle">
+
+		<!-- Linha 3 -->
+		<element kind="staticText" x="0" y="50" width="60" height="20" vTextAlign="Middle">
 			<text><![CDATA[Telefone:]]></text>
 		</element>
-		<element kind="textField" uuid="3c3296a6-7277-4a32-b704-840f6d2d2b25" x="330" y="40" width="222" height="20" vTextAlign="Middle">
+		<element kind="textField" x="60" y="50" width="220" height="20" vTextAlign="Middle">
 			<expression><![CDATA[$P{PHONE}]]></expression>
 		</element>
-		<element kind="staticText" uuid="191da9ed-171b-404b-b37e-ba6221ef283c" x="0" y="60" width="60" height="20" vTextAlign="Middle">
+
+		<element kind="staticText" x="280" y="50" width="70" height="20" vTextAlign="Middle">
+			<text><![CDATA[Rua:]]></text>
+		</element>
+		<element kind="textField" x="350" y="50" width="202" height="20" vTextAlign="Middle">
+			<expression><![CDATA[$P{STREET}]]></expression>
+		</element>
+
+		<!-- Linha 4 -->
+		<element kind="staticText" x="0" y="75" width="60" height="20" vTextAlign="Middle">
+			<text><![CDATA[Número:]]></text>
+		</element>
+		<element kind="textField" x="60" y="75" width="220" height="20" vTextAlign="Middle">
+			<expression><![CDATA[$P{NUMBER}]]></expression>
+		</element>
+
+		<element kind="staticText" x="280" y="75" width="70" height="20" vTextAlign="Middle">
+			<text><![CDATA[Bairro:]]></text>
+		</element>
+		<element kind="textField" x="350" y="75" width="202" height="20" vTextAlign="Middle">
+			<expression><![CDATA[$P{NEIGHBORHOOD}]]></expression>
+		</element>
+
+		<!-- Linha 5 -->
+		<element kind="staticText" x="0" y="100" width="60" height="20" vTextAlign="Middle">
+			<text><![CDATA[Cidade:]]></text>
+		</element>
+		<element kind="textField" x="60" y="100" width="220" height="20" vTextAlign="Middle">
+			<expression><![CDATA[$P{CITY}]]></expression>
+		</element>
+
+		<element kind="staticText" x="280" y="100" width="70" height="20" vTextAlign="Middle">
+			<text><![CDATA[Estado:]]></text>
+		</element>
+		<element kind="textField" x="350" y="100" width="202" height="20" vTextAlign="Middle">
+			<expression><![CDATA[$P{STATE}]]></expression>
+		</element>
+
+		<!-- Linha 6 -->
+		<element kind="staticText" x="0" y="125" width="60" height="20" vTextAlign="Middle">
+			<text><![CDATA[Pais:]]></text>
+		</element>
+		<element kind="textField" x="60" y="125" width="220" height="20" vTextAlign="Middle">
+			<expression><![CDATA[$P{COUNTRY}]]></expression>
+		</element>
+
+		<element kind="staticText" x="280" y="125" width="70" height="20" vTextAlign="Middle">
 			<text><![CDATA[Data:]]></text>
 		</element>
-		<element kind="textField" uuid="84f4b39e-2679-4cc6-ac31-71b3fd97006e" x="60" y="60" width="220" height="20" vTextAlign="Middle">
+		<element kind="textField" x="350" y="125" width="202" height="20" vTextAlign="Middle">
 			<expression><![CDATA[$P{ORDER_DATE}]]></expression>
 		</element>
-		<element kind="staticText" uuid="55066a1c-9b59-4d92-8757-1ff79674b1d5" x="280" y="60" width="50" height="20" vTextAlign="Middle">
+
+		<!-- Linha 7 -->
+		<element kind="staticText" x="0" y="150" width="60" height="20" vTextAlign="Middle">
 			<text><![CDATA[Total:]]></text>
 		</element>
-		<element kind="textField" uuid="d74587ab-5fde-492b-a098-2e2a46573212" x="330" y="60" width="222" height="20" pattern="¤#,##0.##;¤-#,##0.##" vTextAlign="Middle">
+		<element kind="textField" x="60" y="150" width="220" height="20" pattern="¤#,##0.##;¤-#,##0.##" vTextAlign="Middle">
 			<expression><![CDATA[$P{TOTAL}]]></expression>
 		</element>
 	</columnHeader>
+
 	<detail>
 		<band height="20" splitType="Stretch">
 			<element kind="textField" uuid="aff36e86-c032-4b0f-96ff-b0ee858ab0c3" x="0" y="0" width="100" height="20" vTextAlign="Middle">
 				<expression><![CDATA[$F{id}]]></expression>
 			</element>
 			<element kind="textField" uuid="d140fda9-1ee8-4a67-a928-02f5f74ebe9f" x="100" y="0" width="240" height="20" vTextAlign="Middle">
-				<expression><![CDATA[$F{name}]]></expression>
+				<expression><![CDATA[$F{productName}]]></expression>
 			</element>
 			<element kind="textField" uuid="dc0ecb95-6318-4853-97ca-c9370d59ba16" x="340" y="0" width="70" height="20" hTextAlign="Center" vTextAlign="Middle">
 				<expression><![CDATA[$F{quantity}]]></expression>
