@@ -16,4 +16,4 @@ ecommerce:
         orders-shipped: ecommerce.orders-shipped
 
 server:
-  port: 8084
+  port: 8085

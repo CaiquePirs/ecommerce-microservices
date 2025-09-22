@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleStockInsufficient(StockInsufficientException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(
                 Instant.now(),
-                HttpStatus.NOT_FOUND.value(),
+                HttpStatus.UNPROCESSABLE_ENTITY.value(),
                 e.getMessage(),
                 List.of(new ErrorMessage("Stock Insufficient", e.getMessage()))
         ));

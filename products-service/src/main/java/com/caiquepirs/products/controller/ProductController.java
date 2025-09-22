@@ -40,14 +40,14 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Void> updateStockProduct(@PathVariable(name = "id") Long productId,
                                                    @RequestParam(name = "stock") Integer stockUsed){
         updateStockProductUseCase.execute(productId, stockUsed);
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/{id}/update-stock")
+    @PutMapping("/{id}/update-stock")
     public ResponseEntity<Void> addStockProduct(@PathVariable(name = "id") Long productId,
                                                 @RequestParam(name = "stock") Integer stockUsed){
         addStockProductUseCase.execute(productId, stockUsed);

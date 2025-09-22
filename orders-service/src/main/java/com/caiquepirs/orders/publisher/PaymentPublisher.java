@@ -25,10 +25,11 @@ public class PaymentPublisher {
         try {
             OrderResponseDTO orderResponseDTO = orderResponse.mapToResponse(order);
             String json = objectMapper.writeValueAsString(orderResponseDTO);
+
             kafkaTemplate.send(topic, "orders", json);
 
         } catch (JsonProcessingException | RuntimeException e) {
-            throw new RuntimeException("Error processing order: " + e.getMessage());
+            throw new RuntimeException("Error when publishing payment order: " + e.getMessage());
         }
     }
 }
