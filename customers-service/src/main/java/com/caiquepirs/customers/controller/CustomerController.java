@@ -1,19 +1,19 @@
 package com.caiquepirs.customers.controller;
 
+import com.caiquepirs.customers.client.representation.OrdersRepresentation;
 import com.caiquepirs.customers.controller.dto.CustomerRequestDTO;
 import com.caiquepirs.customers.controller.dto.CustomerResponseDTO;
 import com.caiquepirs.customers.controller.dto.CustomerUpdateDTO;
 import com.caiquepirs.customers.mapper.CustomerMapper;
 import com.caiquepirs.customers.model.Customer;
-import com.caiquepirs.customers.useCases.CreateCustomerUseCase;
-import com.caiquepirs.customers.useCases.DeactivateCustomerByIdUseCase;
-import com.caiquepirs.customers.useCases.FindCustomerByIdUseCase;
-import com.caiquepirs.customers.useCases.UpdateCustomerByIdUseCase;
+import com.caiquepirs.customers.useCases.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/customers")
@@ -24,6 +24,7 @@ public class CustomerController {
     private final FindCustomerByIdUseCase findCustomerByIdUseCase;
     private final DeactivateCustomerByIdUseCase deactivateCustomerByIdUseCase;
     private final UpdateCustomerByIdUseCase updateCustomerByIdUseCase;
+    private final FindOrdersByCustomerIdUseCase findOrdersByCustomerIdUseCase;
     private final CustomerMapper mapper;
 
     @PostMapping
@@ -36,6 +37,11 @@ public class CustomerController {
     public ResponseEntity<CustomerResponseDTO> findById(@PathVariable(name = "id") Long customerId){
         Customer customer = findCustomerByIdUseCase.execute(customerId);
         return ResponseEntity.ok(mapper.toDTO(customer));
+    }
+
+    @GetMapping("/{id}/orders")
+    public ResponseEntity<List<OrdersRepresentation>> findAllOrdersByCustomerId(@PathVariable(name = "id") Long customerId){
+        return ResponseEntity.ok(findOrdersByCustomerIdUseCase.execute(customerId));
     }
 
     @DeleteMapping("/{id}")

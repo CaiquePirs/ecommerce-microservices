@@ -7,11 +7,14 @@ import com.caiquepirs.orders.controller.dto.OrderResponseDTO;
 import com.caiquepirs.orders.generator.GenerateOrderResponse;
 import com.caiquepirs.orders.useCases.AddNewPaymentToOrderUseCase;
 import com.caiquepirs.orders.useCases.CreateOrderUseCase;
+import com.caiquepirs.orders.useCases.FindAllOrdersByCustomerIdUseCase;
 import com.caiquepirs.orders.useCases.FindOrderByIdUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -23,6 +26,7 @@ public class OrderController {
     private final CreateOrderUseCase createOrderUseCase;
     private final FindOrderByIdUseCase findOrderByIdUseCase;
     private final AddNewPaymentToOrderUseCase addNewPaymentToOrderUseCase;
+    private final FindAllOrdersByCustomerIdUseCase findAllOrdersByCustomerIdUseCase;
 
     @PostMapping
     public ResponseEntity<OrderResponseDTO> create(@RequestBody OrderRequestDTO orderRequest){
@@ -41,4 +45,16 @@ public class OrderController {
         addNewPaymentToOrderUseCase.execute(updateOrderPaymentDTO);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}/customer")
+    public ResponseEntity<List<OrderResponseDTO>> findAllOrdersByCustomerId(@PathVariable(name = "id") Long customerId){
+        List<OrderResponseDTO> response = findAllOrdersByCustomerIdUseCase.execute(customerId)
+                .stream()
+                .map(orderResponse::mapToResponse)
+                .toList();
+        return ResponseEntity.ok(response);
+    }
+
+
+
 }
