@@ -27,12 +27,18 @@ public class InvoiceGeneratorByPDF implements InvoiceGenerator<byte[]> {
 
             Map<String, Object> params = new HashMap<>();
             params.put("NAME", order.customer().name());
+            params.put("LAST_NAME", order.customer().lastName());
             params.put("CPF", order.customer().cpf());
-            params.put("NEIGHBORHOOD", order.customer().neighborhood());
-            params.put("NUMBER", order.customer().number());
-            params.put("STREET", order.customer().street());
             params.put("EMAIL", order.customer().email());
             params.put("PHONE", order.customer().phone());
+
+            params.put("STREET", order.customer().address().street());
+            params.put("CITY", order.customer().address().city());
+            params.put("STATE", order.customer().address().state());
+            params.put("COUNTRY", order.customer().address().country());
+            params.put("NUMBER", order.customer().address().number());
+            params.put("NEIGHBORHOOD", order.customer().address().neighborhood());
+
             params.put("ORDER_DATE", order.orderDate());
             params.put("TOTAL", order.total());
 
@@ -44,7 +50,7 @@ public class InvoiceGeneratorByPDF implements InvoiceGenerator<byte[]> {
             return JasperExportManager.exportReportToPdf(jasperPrint);
 
         } catch (Exception e){
-            throw new FailedToGenerateFileException("Error generating PDF: " + e.getMessage());
+            throw new FailedToGenerateFileException("Error generating PDF: " + e);
         }
     }
 

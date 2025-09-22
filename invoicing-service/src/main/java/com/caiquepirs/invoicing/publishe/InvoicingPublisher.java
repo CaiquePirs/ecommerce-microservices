@@ -1,10 +1,10 @@
-package com.caiquepirs.invoicing.subscriber;
+package com.caiquepirs.invoicing.publishe;
 
 import com.caiquepirs.invoicing.bucket.BucketService;
 import com.caiquepirs.invoicing.controller.advice.exceptions.FailedToSendFileException;
 import com.caiquepirs.invoicing.controller.advice.exceptions.FileNotFoundException;
 import com.caiquepirs.invoicing.model.Order;
-import com.caiquepirs.invoicing.subscriber.representation.StatusOrder;
+import com.caiquepirs.invoicing.subscriber.representation.enuns.StatusOrder;
 import com.caiquepirs.invoicing.subscriber.representation.UpdateStatusOrder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;

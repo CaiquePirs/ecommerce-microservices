@@ -19,7 +19,6 @@ public class InvoicingService {
     private final BucketService bucketService;
 
     public void generateInvoiceByPdf(Order order) {
-
         try {
             byte[] reportPdf = invoiceGeneratorByPDF.generator(order);
 
@@ -33,9 +32,7 @@ public class InvoicingService {
             bucketService.upload(file);
 
         } catch (Exception e) {
-            throw new FailedToGenerateFileException("Fail to generate invoicing PDF: " + e.getMessage());
+            throw new FailedToGenerateFileException("Fail to generate invoicing order PDF: " + e.getMessage());
         }
-
     }
-
 }

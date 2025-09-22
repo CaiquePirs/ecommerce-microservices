@@ -2,6 +2,7 @@ package com.caiquepirs.invoicing.subscriber;
 
 import com.caiquepirs.invoicing.mapper.OrderMapper;
 import com.caiquepirs.invoicing.model.Order;
+import com.caiquepirs.invoicing.publishe.InvoicingPublisher;
 import com.caiquepirs.invoicing.service.InvoicingService;
 import com.caiquepirs.invoicing.subscriber.representation.OrderRepresentation;
 import com.fasterxml.jackson.databind.ObjectMapper;
