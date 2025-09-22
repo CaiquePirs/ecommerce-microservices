@@ -1,31 +1,29 @@
 package com.caiquepirs.invoicing.mapper;
 
+import com.caiquepirs.invoicing.model.Address;
 import com.caiquepirs.invoicing.model.Customer;
 import com.caiquepirs.invoicing.model.ItemOrder;
 import com.caiquepirs.invoicing.model.Order;
+import com.caiquepirs.invoicing.subscriber.representation.CustomerAddressRepresentation;
+import com.caiquepirs.invoicing.subscriber.representation.CustomerRepresentation;
 import com.caiquepirs.invoicing.subscriber.representation.OrderRepresentation;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Component
 public class OrderMapper {
 
     public Order mapOrder(OrderRepresentation orderRepresentation){
-        Customer customer = mapToCustomer(orderRepresentation);
+        Customer customer = mapToCustomer(orderRepresentation.customer());
         List<ItemOrder> items = mapToItems(orderRepresentation);
-
-        BigDecimal totalOrder = items.stream()
-                .map(ItemOrder::getTotal)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
         return Order.builder()
                 .id(orderRepresentation.id())
-                .customer(customer)
-                .itemOrders(items)
-                .total(totalOrder)
                 .orderDate(orderRepresentation.orderDate())
+                .itemOrders(items)
+                .customer(customer)
+                .total(orderRepresentation.total())
                 .build();
     }
 
@@ -33,21 +31,32 @@ public class OrderMapper {
         return orderRepresentation.items().stream()
                 .map(i -> ItemOrder.builder()
                         .id(i.id())
-                        .name(i.productName())
+                        .productName(i.productName())
                         .unitValue(i.unitValue())
                         .quantity(i.quantity())
+                        .total(i.total())
                         .build()).toList();
     }
 
-    private Customer mapToCustomer(OrderRepresentation orderRepresentation){
+    private Customer mapToCustomer(CustomerRepresentation customerRepresentation){
         return Customer.builder()
-                .name(orderRepresentation.name())
-                .phone(orderRepresentation.phone())
-                .cpf(orderRepresentation.cpf())
-                .email(orderRepresentation.email())
-                .neighborhood(orderRepresentation.neighborhood())
-                .number(orderRepresentation.number())
-                .street(orderRepresentation.street())
+                .name(customerRepresentation.name())
+                .lastName(customerRepresentation.lastName())
+                .phone(customerRepresentation.phone())
+                .email(customerRepresentation.email())
+                .cpf(customerRepresentation.cpf())
+                .address(mapToAddress(customerRepresentation.address()))
+                .build();
+    }
+
+    private Address mapToAddress(CustomerAddressRepresentation addressRepresentation){
+        return Address.builder()
+                .city(addressRepresentation.city())
+                .state(addressRepresentation.state())
+                .country(addressRepresentation.country())
+                .neighborhood(addressRepresentation.neighborhood())
+                .number(addressRepresentation.number())
+                .street(addressRepresentation.street())
                 .build();
     }
 

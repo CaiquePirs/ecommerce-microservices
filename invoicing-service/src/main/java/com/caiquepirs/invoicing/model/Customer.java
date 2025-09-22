@@ -5,10 +5,9 @@ import lombok.Builder;
 @Builder
 public record Customer(
         String name,
+        String lastName,
         String cpf,
         String email,
         String phone,
-        String neighborhood,
-        String street,
-        String number) {
+        Address address) {
 }

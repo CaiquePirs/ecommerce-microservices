@@ -10,12 +10,9 @@ import java.math.BigDecimal;
 public class ItemOrder {
 
     private Long id;
-    private String name;
+    private String productName;
     private BigDecimal unitValue;
     private Integer quantity;
-
-    public BigDecimal getTotal(){
-        return this.unitValue.multiply(BigDecimal.valueOf(quantity));
-    }
+    private BigDecimal total;
 
 }
