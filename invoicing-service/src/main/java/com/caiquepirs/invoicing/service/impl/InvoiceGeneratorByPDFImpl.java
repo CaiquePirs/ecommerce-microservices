@@ -2,7 +2,7 @@ package com.caiquepirs.invoicing.service.impl;
 
 import com.caiquepirs.invoicing.controller.advice.exceptions.FailedToGenerateFileException;
 import com.caiquepirs.invoicing.model.Order;
-import com.caiquepirs.invoicing.service.contract.InvoiceGenerator;
+import com.caiquepirs.invoicing.service.contract.InvoiceGeneratorByPdf;
 import lombok.RequiredArgsConstructor;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -16,7 +16,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class InvoiceGeneratorByPDF implements InvoiceGenerator<byte[]> {
+public class InvoiceGeneratorByPDFImpl implements InvoiceGeneratorByPdf {
 
     @Value("classpath:reports/invoicing.jrxml")
     private Resource invoicing;

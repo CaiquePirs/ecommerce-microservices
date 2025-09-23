@@ -4,7 +4,7 @@ import com.caiquepirs.invoicing.bucket.BucketFile;
 import com.caiquepirs.invoicing.bucket.BucketService;
 import com.caiquepirs.invoicing.controller.advice.exceptions.FailedToGenerateFileException;
 import com.caiquepirs.invoicing.model.Order;
-import com.caiquepirs.invoicing.service.impl.InvoiceGeneratorByPDF;
+import com.caiquepirs.invoicing.service.contract.InvoiceGeneratorByPdf;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.io.ByteArrayInputStream;
 @RequiredArgsConstructor
 public class InvoicingService {
 
-    private final InvoiceGeneratorByPDF invoiceGeneratorByPDF;
+    private final InvoiceGeneratorByPdf invoiceGeneratorByPDF;
     private final BucketService bucketService;
 
     public void generateInvoiceByPdf(Order order) {
