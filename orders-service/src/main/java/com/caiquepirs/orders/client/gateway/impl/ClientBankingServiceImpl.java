@@ -1,15 +1,18 @@
 package com.caiquepirs.orders.client.gateway.impl;
 
 import com.caiquepirs.orders.client.gateway.contract.PaymentGateway;
+import com.caiquepirs.orders.client.gateway.strategy.factory.PaymentMethodFactory;
 import com.caiquepirs.orders.controller.dto.ReceiveCallbackPaymentDTO;
-import com.caiquepirs.orders.controller.handler.exceptions.OrderNotFoundException;
+import com.caiquepirs.orders.controller.handler.exceptions.PaymentErrorException;
 import com.caiquepirs.orders.model.Order;
+import com.caiquepirs.orders.model.enums.PaymentType;
 import com.caiquepirs.orders.model.enums.StatusOrder;
 import com.caiquepirs.orders.publisher.PaymentPublisher;
 import com.caiquepirs.orders.repository.OrderRepository;
+import com.caiquepirs.orders.useCases.FindOrderByPaymentKeyUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import java.util.UUID;
+
 
 @Component
 @RequiredArgsConstructor
@@ -17,9 +20,19 @@ public class ClientBankingServiceImpl implements PaymentGateway {
 
     private final OrderRepository orderRepository;
     private final PaymentPublisher paymentPublisher;
+    private final FindOrderByPaymentKeyUseCase findOrderByPaymentKeyUseCase;
+    private final PaymentMethodFactory paymentMethodFactory;
 
-    public String pay(Order order){
-        return UUID.randomUUID().toString();
+    public String pay(Order order) {
+        PaymentType paymentType = order.getPaymentDetails().getPaymentType();
+
+        String paymentKey = paymentMethodFactory.execute(order, paymentType).getPaymentKey();
+
+        if(paymentKey == null){
+            throw new PaymentErrorException("Error processing payment");
+        }
+
+        return paymentKey;
     }
 
     @Override
@@ -27,11 +40,7 @@ public class ClientBankingServiceImpl implements PaymentGateway {
         Long orderId = receiveCallbackPaymentDTO.orderId();
         String paymentKey = receiveCallbackPaymentDTO.paymentKey();
 
-        Order order = orderRepository.findByIdAndPaymentKey(orderId, paymentKey)
-                .orElseThrow(() -> new OrderNotFoundException(
-                        "Order with ID: " + orderId +
-                        " and PaymentKey: " + paymentKey + " not found.")
-                );
+        Order order = findOrderByPaymentKeyUseCase.order(orderId, paymentKey);
 
         if(receiveCallbackPaymentDTO.status()){
             order.setStatus(StatusOrder.PAID);

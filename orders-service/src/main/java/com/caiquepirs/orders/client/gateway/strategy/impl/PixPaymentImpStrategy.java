@@ -1,8 +1,10 @@
 package com.caiquepirs.orders.client.gateway.strategy.impl;
 
+import com.caiquepirs.orders.client.gateway.impl.ProcessPaymentService;
 import com.caiquepirs.orders.client.gateway.strategy.PaymentMethodStrategy;
 import com.caiquepirs.orders.client.gateway.impl.ClientBankingServiceImpl;
 import com.caiquepirs.orders.model.Order;
+import com.caiquepirs.orders.model.enums.PaymentType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -10,9 +12,16 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class PixPaymentImpStrategy implements PaymentMethodStrategy {
 
-    private final ClientBankingServiceImpl clientBankingService;
+    private final ProcessPaymentService processPaymentService;
 
-    public String pay(Order order) {
-        return clientBankingService.pay(order);
+    public Order pay(Order order, PaymentType paymentType) {
+        if(paymentType.equals(PaymentType.PIX)){
+
+            String paymentKey = processPaymentService.execute();
+            order.setPaymentKey(paymentKey);
+
+            return order;
+        }
+        return order;
     }
 }

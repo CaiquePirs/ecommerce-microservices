@@ -1,5 +1,6 @@
 package com.caiquepirs.orders.controller;
 
+import com.caiquepirs.orders.client.gateway.contract.PaymentGateway;
 import com.caiquepirs.orders.client.gateway.impl.ClientBankingServiceImpl;
 import com.caiquepirs.orders.controller.dto.ReceiveCallbackPaymentDTO;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/orders/callback-payment")
 public class ReceiveCallbackPaymentController {
 
-    private final ClientBankingServiceImpl clientBankingService;
+    private final PaymentGateway paymentGateway;
 
     @PostMapping
     public ResponseEntity<Void> updateStatusPayment(
@@ -20,7 +21,7 @@ public class ReceiveCallbackPaymentController {
 
        // validation logic to validate apikey
 
-        clientBankingService.callbackPayment(receiveCallbackPaymentDTO);
+        paymentGateway.callbackPayment(receiveCallbackPaymentDTO);
         return ResponseEntity.ok().build();
     }
 

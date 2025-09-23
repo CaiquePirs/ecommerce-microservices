@@ -1,6 +1,6 @@
 package com.caiquepirs.orders.useCases;
 
-import com.caiquepirs.orders.client.gateway.strategy.factory.PaymentMethodFactory;
+import com.caiquepirs.orders.client.gateway.contract.PaymentGateway;
 import com.caiquepirs.orders.controller.dto.UpdateOrderPaymentDTO;
 import com.caiquepirs.orders.controller.handler.exceptions.ValidationException;
 import com.caiquepirs.orders.model.Order;
@@ -17,7 +17,7 @@ public class AddNewPaymentToOrderUseCase {
 
     private final OrderRepository repository;
     private final FindOrderByIdUseCase findOrderByIdUseCase;
-    private final PaymentMethodFactory paymentMethodFactory;
+    private final PaymentGateway paymentGateway;
 
     @Transactional
     public void execute(UpdateOrderPaymentDTO paymentDTO) {
@@ -33,7 +33,7 @@ public class AddNewPaymentToOrderUseCase {
                 .data(paymentDTO.paymentData())
                 .build();
 
-        String paymentKey = paymentMethodFactory.pay(order);
+        String paymentKey = paymentGateway.pay(order);
 
         order.setPaymentDetails(paymentDetails);
         order.setPaymentKey(paymentKey);

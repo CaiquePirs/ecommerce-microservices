@@ -1,6 +1,7 @@
 package com.caiquepirs.orders.useCases;
 
 import com.caiquepirs.orders.calculator.OrderCalculator;
+import com.caiquepirs.orders.client.gateway.contract.PaymentGateway;
 import com.caiquepirs.orders.client.gateway.strategy.factory.PaymentMethodFactory;
 import com.caiquepirs.orders.client.services.ClientsApiService;
 import com.caiquepirs.orders.controller.dto.OrderRequestDTO;
@@ -19,7 +20,7 @@ import java.util.List;
 public class CreateOrderUseCase {
 
     private final OrderRepository repository;
-    private final PaymentMethodFactory paymentMethodFactory;
+    private final PaymentGateway paymentGateway;
     private final OrderCalculator calculator;
     private final OrderMapper orderMapper;
     private final CreateItemOrderUseCase createItemOrderUseCase;
@@ -31,7 +32,7 @@ public class CreateOrderUseCase {
 
         clientService.findCustomer(order.getCustomerId());
 
-        String paymentKey = paymentMethodFactory.pay(order);
+        String paymentKey = paymentGateway.pay(order);
 
         order.setItems(items);
         order.setTotal(calculator.calculateTotalOrder(order));

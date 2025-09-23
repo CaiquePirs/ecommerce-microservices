@@ -1,7 +1,8 @@
 package com.caiquepirs.orders.client.gateway.strategy;
 
 import com.caiquepirs.orders.model.Order;
+import com.caiquepirs.orders.model.enums.PaymentType;
 
 public interface PaymentMethodStrategy {
-    String pay(Order order);
+    Order pay(Order order, PaymentType paymentType);
 }
