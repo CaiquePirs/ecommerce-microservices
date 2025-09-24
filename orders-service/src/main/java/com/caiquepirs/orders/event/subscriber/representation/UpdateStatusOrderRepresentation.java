@@ -1,4 +1,4 @@
-package com.caiquepirs.orders.subscriber.representation;
+package com.caiquepirs.orders.event.subscriber.representation;
 
 import com.caiquepirs.orders.model.enums.StatusOrder;
 

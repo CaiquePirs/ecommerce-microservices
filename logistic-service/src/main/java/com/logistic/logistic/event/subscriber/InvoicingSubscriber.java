@@ -1,8 +1,8 @@
-package com.logistic.logistic.subscriber;
+package com.logistic.logistic.event.subscriber;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.logistic.logistic.service.ShippingLogisticService;
-import com.logistic.logistic.subscriber.representation.UpdateInvoiceOrderRepresentation;
+import com.logistic.logistic.event.subscriber.representation.UpdateInvoiceOrderRepresentation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;

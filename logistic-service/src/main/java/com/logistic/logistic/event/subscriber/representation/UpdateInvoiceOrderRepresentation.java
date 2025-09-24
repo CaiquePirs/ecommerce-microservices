@@ -1,4 +1,4 @@
-package com.logistic.logistic.subscriber.representation;
+package com.logistic.logistic.event.subscriber.representation;
 
 import com.logistic.logistic.model.enuns.StatusOrder;
 

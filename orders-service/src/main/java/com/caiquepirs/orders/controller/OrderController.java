@@ -4,7 +4,7 @@ import com.caiquepirs.orders.controller.dto.OrderRequestDTO;
 import com.caiquepirs.orders.controller.dto.UpdateOrderPaymentDTO;
 import com.caiquepirs.orders.model.Order;
 import com.caiquepirs.orders.controller.dto.OrderResponseDTO;
-import com.caiquepirs.orders.generator.GenerateOrderResponse;
+import com.caiquepirs.orders.mapper.GenerateOrderResponse;
 import com.caiquepirs.orders.useCases.AddNewPaymentToOrderUseCase;
 import com.caiquepirs.orders.useCases.CreateOrderUseCase;
 import com.caiquepirs.orders.useCases.FindAllOrdersByCustomerIdUseCase;

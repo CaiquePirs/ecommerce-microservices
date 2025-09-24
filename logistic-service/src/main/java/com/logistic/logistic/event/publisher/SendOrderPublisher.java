@@ -1,4 +1,4 @@
-package com.logistic.logistic.publisher;
+package com.logistic.logistic.event.publisher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.logistic.logistic.model.UpdateOrderShipping;

@@ -1,4 +1,4 @@
-package com.caiquepirs.orders.generator;
+package com.caiquepirs.orders.mapper;
 
 import com.caiquepirs.orders.calculator.OrderCalculator;
 import com.caiquepirs.orders.client.services.ClientsApiService;

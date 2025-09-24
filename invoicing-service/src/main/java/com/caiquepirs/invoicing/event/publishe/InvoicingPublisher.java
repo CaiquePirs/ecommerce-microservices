@@ -1,11 +1,11 @@
-package com.caiquepirs.invoicing.publishe;
+package com.caiquepirs.invoicing.event.publishe;
 
 import com.caiquepirs.invoicing.bucket.BucketService;
 import com.caiquepirs.invoicing.controller.advice.exceptions.FailedToSendFileException;
 import com.caiquepirs.invoicing.controller.advice.exceptions.FileNotFoundException;
 import com.caiquepirs.invoicing.model.Order;
-import com.caiquepirs.invoicing.subscriber.representation.enuns.StatusOrder;
-import com.caiquepirs.invoicing.subscriber.representation.UpdateStatusOrder;
+import com.caiquepirs.invoicing.event.subscriber.representation.enuns.StatusOrder;
+import com.caiquepirs.invoicing.event.subscriber.representation.UpdateStatusOrder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

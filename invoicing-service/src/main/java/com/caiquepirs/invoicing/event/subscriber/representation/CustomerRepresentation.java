@@ -1,4 +1,4 @@
-package com.caiquepirs.invoicing.subscriber.representation;
+package com.caiquepirs.invoicing.event.subscriber.representation;
 
 public record CustomerRepresentation(
         Long id,

@@ -1,10 +1,10 @@
-package com.caiquepirs.invoicing.subscriber;
+package com.caiquepirs.invoicing.event.subscriber;
 
 import com.caiquepirs.invoicing.mapper.OrderMapper;
 import com.caiquepirs.invoicing.model.Order;
-import com.caiquepirs.invoicing.publishe.InvoicingPublisher;
+import com.caiquepirs.invoicing.event.publishe.InvoicingPublisher;
 import com.caiquepirs.invoicing.service.InvoicingService;
-import com.caiquepirs.invoicing.subscriber.representation.OrderRepresentation;
+import com.caiquepirs.invoicing.event.subscriber.representation.OrderRepresentation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;

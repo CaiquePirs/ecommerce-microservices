@@ -2,7 +2,7 @@ package com.caiquepirs.orders.useCases;
 
 import com.caiquepirs.orders.model.Order;
 import com.caiquepirs.orders.repository.OrderRepository;
-import com.caiquepirs.orders.subscriber.representation.UpdateStatusOrderRepresentation;
+import com.caiquepirs.orders.event.subscriber.representation.UpdateStatusOrderRepresentation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

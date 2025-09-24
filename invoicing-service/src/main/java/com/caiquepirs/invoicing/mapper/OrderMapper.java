@@ -4,9 +4,9 @@ import com.caiquepirs.invoicing.model.Address;
 import com.caiquepirs.invoicing.model.Customer;
 import com.caiquepirs.invoicing.model.ItemOrder;
 import com.caiquepirs.invoicing.model.Order;
-import com.caiquepirs.invoicing.subscriber.representation.CustomerAddressRepresentation;
-import com.caiquepirs.invoicing.subscriber.representation.CustomerRepresentation;
-import com.caiquepirs.invoicing.subscriber.representation.OrderRepresentation;
+import com.caiquepirs.invoicing.event.subscriber.representation.CustomerAddressRepresentation;
+import com.caiquepirs.invoicing.event.subscriber.representation.CustomerRepresentation;
+import com.caiquepirs.invoicing.event.subscriber.representation.OrderRepresentation;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

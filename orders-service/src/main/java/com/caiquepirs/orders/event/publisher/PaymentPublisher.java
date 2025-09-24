@@ -1,7 +1,7 @@
-package com.caiquepirs.orders.publisher;
+package com.caiquepirs.orders.event.publisher;
 
 import com.caiquepirs.orders.controller.dto.OrderResponseDTO;
-import com.caiquepirs.orders.generator.GenerateOrderResponse;
+import com.caiquepirs.orders.mapper.GenerateOrderResponse;
 import com.caiquepirs.orders.model.Order;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -2,8 +2,8 @@ package com.logistic.logistic.service;
 
 import com.logistic.logistic.model.UpdateOrderShipping;
 import com.logistic.logistic.model.enuns.StatusOrder;
-import com.logistic.logistic.publisher.SendOrderPublisher;
-import com.logistic.logistic.subscriber.representation.UpdateInvoiceOrderRepresentation;
+import com.logistic.logistic.event.publisher.SendOrderPublisher;
+import com.logistic.logistic.event.subscriber.representation.UpdateInvoiceOrderRepresentation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

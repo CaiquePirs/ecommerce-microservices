@@ -7,7 +7,7 @@ import com.caiquepirs.orders.controller.handler.exceptions.PaymentErrorException
 import com.caiquepirs.orders.model.Order;
 import com.caiquepirs.orders.model.enums.PaymentType;
 import com.caiquepirs.orders.model.enums.StatusOrder;
-import com.caiquepirs.orders.publisher.PaymentPublisher;
+import com.caiquepirs.orders.event.publisher.PaymentPublisher;
 import com.caiquepirs.orders.repository.OrderRepository;
 import com.caiquepirs.orders.useCases.FindOrderByPaymentKeyUseCase;
 import lombok.RequiredArgsConstructor;

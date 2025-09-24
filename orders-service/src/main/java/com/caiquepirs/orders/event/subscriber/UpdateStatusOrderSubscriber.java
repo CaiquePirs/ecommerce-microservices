@@ -1,7 +1,7 @@
-package com.caiquepirs.orders.subscriber;
+package com.caiquepirs.orders.event.subscriber;
 
 import com.caiquepirs.orders.controller.handler.exceptions.ValidationException;
-import com.caiquepirs.orders.subscriber.representation.UpdateStatusOrderRepresentation;
+import com.caiquepirs.orders.event.subscriber.representation.UpdateStatusOrderRepresentation;
 import com.caiquepirs.orders.useCases.UpdateStatusOrderUseCase;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
