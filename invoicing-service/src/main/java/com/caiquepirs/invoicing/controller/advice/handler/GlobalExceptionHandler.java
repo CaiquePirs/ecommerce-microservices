@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @ControllerAdvice
@@ -18,7 +19,7 @@ public class GlobalExceptionHandler {
 
     private ErrorResponse generator(Integer status, String message, List<ErrorMessage> errorMessages){
         return new ErrorResponse(
-                Instant.now(),
+                LocalDateTime.now(),
                 status,
                 message,
                 errorMessages);

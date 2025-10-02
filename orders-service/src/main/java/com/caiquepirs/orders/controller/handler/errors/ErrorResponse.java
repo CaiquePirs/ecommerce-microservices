@@ -1,10 +1,10 @@
 package com.caiquepirs.orders.controller.handler.errors;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public record ErrorResponse(
-        Instant timestamp,
+        LocalDateTime timestamp,
         Integer status,
         String message,
         List<ErrorMessage> errors) {

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +27,7 @@ public class GlobalExceptionHandler {
                 .collect(Collectors.toList());
 
         ErrorResponse error = new ErrorResponse(
-                Instant.now(),
+                LocalDateTime.now(),
                 HttpStatus.UNPROCESSABLE_ENTITY.value(),
                 "Validation error",
                 listErrors
@@ -37,7 +38,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(StockInsufficientException.class)
     public ResponseEntity<ErrorResponse> handleStockInsufficient(StockInsufficientException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(
-                Instant.now(),
+                LocalDateTime.now(),
                 HttpStatus.UNPROCESSABLE_ENTITY.value(),
                 e.getMessage(),
                 List.of(new ErrorMessage("Stock Insufficient", e.getMessage()))
@@ -47,7 +48,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ProductNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleProductNotFound(ProductNotFoundException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(
-                Instant.now(),
+                LocalDateTime.now(),
                 HttpStatus.NOT_FOUND.value(),
                 e.getMessage(),
                 List.of(new ErrorMessage("Not found", e.getMessage()))

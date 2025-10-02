@@ -1,10 +1,10 @@
 package com.caiquepirs.invoicing.controller.advice.erros;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public record ErrorResponse(
-        Instant instant,
+        LocalDateTime instant,
         Integer status,
         String message,
         List<ErrorMessage> errors) {
