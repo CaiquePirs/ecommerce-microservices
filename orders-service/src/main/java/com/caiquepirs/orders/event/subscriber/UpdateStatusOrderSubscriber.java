@@ -32,7 +32,7 @@ public class UpdateStatusOrderSubscriber {
             updateStatusOrderUseCase.execute(updateStatusOrder);
 
         } catch (Exception e){
-            throw new ValidationException("error receiving order update: " + e.getMessage());
+            log.info("Error receiving order update: {}", e.getMessage());
         }
     }
 

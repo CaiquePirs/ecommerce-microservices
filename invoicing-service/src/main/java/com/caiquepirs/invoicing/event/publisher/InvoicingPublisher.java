@@ -1,19 +1,20 @@
-package com.caiquepirs.invoicing.event.publishe;
+package com.caiquepirs.invoicing.event.publisher;
 
 import com.caiquepirs.invoicing.bucket.BucketService;
-import com.caiquepirs.invoicing.controller.advice.exceptions.FailedToSendFileException;
 import com.caiquepirs.invoicing.controller.advice.exceptions.FileNotFoundException;
 import com.caiquepirs.invoicing.model.Order;
 import com.caiquepirs.invoicing.event.subscriber.representation.enuns.StatusOrder;
 import com.caiquepirs.invoicing.event.subscriber.representation.UpdateStatusOrder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class InvoicingPublisher {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
@@ -42,7 +43,7 @@ public class InvoicingPublisher {
            kafkaTemplate.send(topic, "invoicing", json);
 
        } catch (Exception e){
-           throw new FailedToSendFileException("Failed to publish invoice: " + e);
+           log.error("Failed to publisher order message: {}", e.getMessage());
        }
 
     }

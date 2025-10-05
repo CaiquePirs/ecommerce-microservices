@@ -6,12 +6,14 @@ import com.caiquepirs.orders.model.Order;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class PaymentPublisher {
 
     private final GenerateOrderResponse orderResponse;
@@ -29,7 +31,7 @@ public class PaymentPublisher {
             kafkaTemplate.send(topic, "orders", json);
 
         } catch (JsonProcessingException | RuntimeException e) {
-            throw new RuntimeException("Error when publishing payment order: " + e.getMessage());
+            log.info("Error when publishing payment order topic: {}", e.getMessage());
         }
     }
 }

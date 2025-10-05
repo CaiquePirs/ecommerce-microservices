@@ -2,16 +2,18 @@ package com.caiquepirs.invoicing.event.subscriber;
 
 import com.caiquepirs.invoicing.mapper.OrderMapper;
 import com.caiquepirs.invoicing.model.Order;
-import com.caiquepirs.invoicing.event.publishe.InvoicingPublisher;
+import com.caiquepirs.invoicing.event.publisher.InvoicingPublisher;
 import com.caiquepirs.invoicing.service.InvoicingService;
 import com.caiquepirs.invoicing.event.subscriber.representation.OrderRepresentation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class OrderPaidSubscriber {
 
     private final ObjectMapper objectMapper;
@@ -29,7 +31,7 @@ public class OrderPaidSubscriber {
             invoicingPublisher.publisher(order);
 
         } catch (Exception e){
-            throw new RuntimeException("Error: " + e.getMessage());
+            log.error("Failed to process order message: {}", json, e);
         }
     }
 

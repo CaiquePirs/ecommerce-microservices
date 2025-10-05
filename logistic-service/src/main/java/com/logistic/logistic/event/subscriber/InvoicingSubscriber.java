@@ -4,11 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.logistic.logistic.service.ShippingLogisticService;
 import com.logistic.logistic.event.subscriber.representation.UpdateInvoiceOrderRepresentation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class InvoicingSubscriber {
 
     private final ObjectMapper objectMapper;
@@ -22,7 +24,7 @@ public class InvoicingSubscriber {
             shippingLogisticService.sendTrackingCode(updateInvoiceOrder);
 
         } catch (Exception e) {
-            throw new RuntimeException("Error to generate tracking code: " + e.getMessage());
+            log.error("Error to generate tracking code: {}", e.getMessage());
         }
     }
 
